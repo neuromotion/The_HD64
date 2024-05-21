@@ -1,7 +1,6 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
-
 from typing import MutableSequence
 from .utils import get_activation, get_normalization
 
@@ -28,8 +27,6 @@ class MLP(nn.Module):
             last_activation = activation
         
         assert isinstance(hidden_sizes, MutableSequence)     
-        # assert activation in ['sigmoid', 'tanh', 'relu']
-        # assert last_activation in ['identity', 'sigmoid', 'tanh', 'relu']
         
         layers = []
         num_layers = len(hidden_sizes)
@@ -89,17 +86,3 @@ class MultiColumnMLP(nn.Module):
         for column in self.columns:
             y.append(column(x))
         return torch.cat(y, dim=1)
-
-# class ParameterizedStimLinear(nn.Module):
-#     def __init__(self, in_features, out_features, activation='relu'):
-#         super(ParameterizedStimLinear, self).__init__()
-#         self.activation = None if activation is None else getattr(F, activation)
-#         self.linear = nn.Linear(in_features, out_features)
-
-#     def forward(self, x):
-#         y = self.linear(x)
-
-#         if self.activation is not None:
-#             y = self.activation(y)
-
-#         return y

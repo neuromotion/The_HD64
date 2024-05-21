@@ -1,11 +1,3 @@
-<p align="center">
-<b> Fast Inference of Spinal Neuromodulation for Motor Control using Amortized Neural Networks </b>
-<img src="thumbnail.png" width="640" height="480">
-</p>
-<p align="justify">
-Epidural electrical stimulation (EES) has recently emerged as a potential therapeutic approach to restore motor function following chronic spinal cord injury (SCI). However, the lack of robust and systematic algorithms to automatically identify EES parameters that drive sensorimotor networks has become one of the main barriers to the clinical translation of EES. In this work, we present a novel, fully-automated computational framework to identify EES parameter combinations that optimally select for target muscle activation.
-</p>
-
 ### Creating a runtime environment
 You can use the anaconda package manager to install the required dependencies
 
@@ -14,57 +6,32 @@ conda env create -f environment.yml
 conda activate eesinference
 ```
 
-### Datasets
-Data is available on request from the authors.
-
-### Forward model training
-```
-OMP_NUM_THREADS=1 python main.py hydra/launcher=joblib  \
-                                 hydra.run.dir=<path to dir you want as a working directory> \
-                                 model=mlp \
-                                 mode=train \
-                                 datamodule=sheep_20210610 \
-                                 model_save_path=<path to save/load checkpoints> \
-                                 model.network.out_size=7 \
-                                 model.network.in_size=20 \
-                                 trainer.device='cpu'
-
-```
-<p align="justify">
-We note that model.network.out_size and model.network.in_size should be specified based on the number of EMG channels used and the EES parameter dimensionality respectively.
-</p>
+### Data downloading
+See README in "data" directory
 
 
-### Forward model evaluation
-To evaluate the forward model, one can use the same command as above but with the flag `mode=eval`. To extract error metrics (such as per-EMG channel L1 prediction errors) set `mode=metrics`. You can also perform a simple Maximum Likelikhood Estimation using a genetic algorithm to recover EES parameters by setting `mode=MLE`.
+### Forward model training/evaluating/inference
 
-### Training the electrode-conditioned inverse model
+Driver function: **main.py**
+
+*Usage:* 
 ```
-OMP_NUM_THREADS=1 python main.py  hydra/launcher=joblib  \
-                                  hydra.run.dir=<path to dir you want as a working directory> \    
-                                  model=mlp \
-                                  mode=inference  \
-                                  datamodule=sheep_20210610 \
-                                  model_save_path=<path to save/load checkpoints> \
-                                  electrode_index=<the electrode that you want to condition on. range [0, num_electrodes-1]>  \
-                                  target_index=<pick a target EMG. Chosen from the test set>  \
-                                  model.network.out_size=7 \
-                                  model.network.in_size=20 \
-                                  trainer.device='cpu'
+python main.py --exp_name [electrode used ratio] --exp_type StimToEMG --dataset [preprocessed dataset] --mode [mode to run] --raw_data [raw data to load] --target_idx [index of target response]
 ```
-### Parallelize the training of electrode-conditioned inverse models
-As mentioned in the manuscript, all the electrode-conditioned inverse models can be trained in parallel. We'll use the hydra joblib launcher for this purpose.
-```
-OMP_NUM_THREADS=1 python main.py  hydra/launcher=joblib  \
-                                  hydra.run.dir=<path to dir you want as a working directory> \    
-                                  model=mlp \
-                                  mode=inference  \
-                                  datamodule=sheep_20210610 \
-                                  model_save_path=<path to save/load checkpoints> \
-                                  electrode_index=0,1,2,3,...  \
-                                  target_index=<pick a target EMG. Chosen from the test set. This can be parallelized too>  \
-                                  model.network.out_size=7 \
-                                  model.network.in_size=20 \
-                                  trainer.device='cpu' \
-                                  --multirun
-```
+
+*Arguments:*
+
+  --exp_name [= S2E_100, S2E_50, S2E_25]
+  
+  --exp_type [= StimToEMG]
+  
+  --mode [= train, eval, inference]
+  
+  --dataset: This defines the data prefix for any particular run [= 100, 50, 25]
+  
+  --exp_name: This defines the model/ckpt prefixes for any particular run [= S2E_100, S2E_50, S2E_25]
+
+  --raw_data: This defines the directory of data [= data/density100.parquet, data/density50.parquet, data/density25.parquet]
+
+  (inference mode only)
+  --target_idx Defaults to 0. Used to specify the "target" for inference
