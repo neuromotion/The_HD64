@@ -33,6 +33,22 @@ for i = 1:length(unique_bipoles)
 
 end
 
+%% Panel D
+
+load("fig5_panelD.mat")
+
+unique_amps = unique(fig5_panelD.eesAmp_mA);
+figure()
+tcl = tiledlayout(3, 1);
+for ampIdx = 1:length(unique_amps)
+    this_amp = unique_amps(ampIdx);
+
+    nexttile
+    gscatter(fig5_panelD.onsetTime_us(fig5_panelD.eesAmp_mA == this_amp), fig5_panelD.distance_mm(fig5_panelD.eesAmp_mA == this_amp), fig5_panelD.distance_mm(fig5_panelD.eesAmp_mA == this_amp));
+    xlabel("Peak Onset Time [us]")
+    ylabel("Distance from Stimulation Bipole [mm]");
+    title(sprintf("%d mA", this_amp));
+end
 %% functions
 function outColor = hex2rgb(string_vector)
     outColor = nan(length(string_vector), 3);
