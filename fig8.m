@@ -2,7 +2,7 @@
 % Author: Samuel Parker
 % Last Modified: 21-May-2024
 
-clear all; close all; clc
+close all; clc
 %% Panel A
 
 load("fig8_panelA.mat")
