@@ -1,4 +1,4 @@
-%% fig1.m - The code to plot figure 1 of "An active, hermetically sealed epidural paddle array for chronic spinal cord neuromodulation"
+%% fig1.m - The code to plot figure 1 of "An active electronic, high-density epidural paddle array for chronic spinal cord neuromodulation"
 % Author: Samuel Parker
 % Last Modified: 25-Sep-2024
 
