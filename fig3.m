@@ -1,6 +1,6 @@
-%% fig3.m - The code to plot figure 3 of "An active electronic bidirectional interface for high resolution interrogation of the spinal cord"
+%% fig3.m - The code to plot figure 3 of "An active electronic, high-density epidural paddle array for chronic spinal cord neuromodulation"
 % Author: Samuel Parker
-% Last Modified: 21-May-2024
+% Last Modified: 27-Sep-2024
 
 clear all; close all; clc
 %% Panel A
@@ -54,16 +54,18 @@ for musc = 1:6
     hex = string(hex);
 
     out = plotHD64(this_elecs, hex);
-
-    fid = fopen(sprintf("minAmpForThreshold_%s.svg", musc_names(musc)), "w+");
+    filename = sprintf("minAmpForThreshold_%s.svg", musc_names(musc));
+    fprintf("Saving %s...\n", filename);
+    fid = fopen(filename, "w+");
     fprintf(fid, "%s", out);
     fclose(fid);
 end
+disp("Done!")
 
 %% Panel C
 
 load("fig3_panelC.mat")
-colors = ["#4d873b", "#506887", "#fff275", "#ff8c42", "#b3c6a1", "#ff3c38", "#a23e48", "#6699cc"];
+colors = ['#4d873b'; '#506887'; '#fff275'; '#ff8c42'; '#b3c6a1'; '#ff3c38'; '#a23e48'; '#6699cc'];
 
 figure()
 gscatter(fig3_panelC.UMAP1, fig3_panelC.UMAP2, fig3_panelC.clusterID, hex2rgb(colors));
@@ -78,10 +80,12 @@ ylabel("UMAP2")
 load("fig3_panelD.mat")
 colors = ["#4d873b", "#506887", "#fff275", "#ff8c42", "#b3c6a1", "#ff3c38", "#a23e48", "#6699cc"];
 
-out = plotHD64(fig2_panelD.ContactID, colors(fig2_panelD.ClusterID+1));
+out = plotHD64(fig3_panelD.ContactID, colors(fig3_panelD.ClusterID+1));
+disp("Saving fig3_panelD.svg...")
 fid = fopen("fig3_panelD.svg", "w+");
 fprintf(fid, "%s", out);
 fclose(fid);
+disp("Done!")
 
 %% functions
 
