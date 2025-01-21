@@ -1,8 +1,7 @@
+[![DOI](https://zenodo.org/badge/803991380.svg)](https://doi.org/10.5281/zenodo.14713531)
 # An active electronic, high-density epidural paddle array for chronic spinal cord neuromodulation
 
-This code can be used with the data to recreate the figures from the HD64 paper.
-
-Data can be found at 10.5281/zenodo.11223073
+This code and data can be used to recreate the figures from the HD64 paper.
 
 ## Cite as:
 TBD
