@@ -5,7 +5,7 @@
 clear all; close all; clc
 %% Panel D
 
-load("fig2_panelD.mat")
+load(strcat("data", filesep, "fig2_panelD.mat"))
 day_labels = string(day_nums);
 [patches, L, means, meds] = violin(impedances, 'mc', [], 'medc', []);
 set(L, "visible", 'off');

@@ -5,7 +5,7 @@
 clear all; close all; clc
 %% Panel C
 
-load("fig4_panelC.mat")
+load(strcat("data", filesep, "fig4_panelC.mat"))
 colors = hex2rgb(["#bff4ff", "#80e9ff", "00d3ff"]);
 
 figure()
@@ -35,7 +35,7 @@ end
 
 %% Panel D
 
-load("fig4_panelD.mat")
+load(strcat("data", filesep, "fig4_panelD.mat"))
 
 unique_amps = unique(fig4_panelD.eesAmp_mA);
 figure()

@@ -5,7 +5,7 @@
 clear all; close all; clc
 %% Panel A
 
-load("fig3_panelA.mat")
+load(strcat("data", filesep, "fig3_panelA.mat"))
 figure()
 tcl = tiledlayout(2, 1);
 
@@ -32,7 +32,7 @@ ylabel("rAUC (a.u.)")
 
 %% Panel B - this section saves SVGs to the current directory instead of plotting
 
-load("fig3_panelB.mat")
+load(strcat("data", filesep, "fig3_panelB.mat"))
 
 cmap = abyss(256);
 amps_normalized = (fig3_panelB{:, 2:end} - 250) / (1500); 
@@ -64,8 +64,8 @@ disp("Done!")
 
 %% Panel C
 
-load("fig3_panelC.mat")
-colors = ['#4d873b'; '#506887'; '#fff275'; '#ff8c42'; '#b3c6a1'; '#ff3c38'; '#a23e48'; '#6699cc'];
+load(strcat("data", filesep, "fig3_panelC.mat"))
+colors = ["#4d873b", "#506887", "#fff275", "#ff8c42", "#b3c6a1", "#ff3c38", "#a23e48", "#6699cc"];
 
 figure()
 gscatter(fig3_panelC.UMAP1, fig3_panelC.UMAP2, fig3_panelC.clusterID, hex2rgb(colors));
@@ -77,7 +77,7 @@ ylabel("UMAP2")
 
 %% Panel D - this section saves SVGs to the current directory instead of plotting
 
-load("fig3_panelD.mat")
+load(strcat("data", filesep, "fig3_panelD.mat"))
 colors = ["#4d873b", "#506887", "#fff275", "#ff8c42", "#b3c6a1", "#ff3c38", "#a23e48", "#6699cc"];
 
 out = plotHD64(fig3_panelD.ContactID, colors(fig3_panelD.ClusterID+1));

@@ -5,7 +5,7 @@
 clear all; close all; clc
 %% Panel G
 
-load("fig1_panelG.mat")
+load(strcat("data", filesep, "fig1_panelG.mat"))
 MIL_spec_leak_rate_air = 5e-9;
 MIL_spec_leak_rate_He = MIL_spec_leak_rate_air * 2.7; % http://www.leakdetection-technology.com/science/the-flow-of-gases-in-leaks/conversion-of-helium-leak-rate-to-air-leak-rate.html
 

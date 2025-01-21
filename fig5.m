@@ -5,7 +5,7 @@
 clear all; close all; clc
 %% Panel B
 
-load("fig5_panelB.mat")
+load(strcat("data", filesep, "fig5_panelB.mat"))
 figure()
 tiledlayout(2, 1);
 nexttile();
@@ -21,7 +21,7 @@ title("L1 error by electrode inclusion")
 
 %% Panel C
 
-load("fig5_panelC.mat")
+load(strcat("data", filesep, "fig5_panelC.mat"))
 coverage = ["25", "50", "100"];
 af_max_likelihood = 0;
 elec_max_likelihood = 0;
@@ -56,7 +56,7 @@ colormap abyss
 
 %% Panel E
 
-load("fig5_panelE.mat")
+load(strcat("data", filesep, "fig5_panelE.mat"))
 figure()
 boxplot(fig5_panelE.L1_Error, fig5_panelE.Coverage)
 xlabel("Model")
